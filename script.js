@@ -17,8 +17,6 @@ function checkBtns(param) {
 // }
 
 function startTimer() {
- 
-
   interval = setInterval(() => {
     millisecond++;
     if (millisecond == 100) {
@@ -40,7 +38,6 @@ function startTimer() {
 }
 
 function stopTimer() {
- 
   clearInterval(interval);
 }
 
@@ -53,7 +50,6 @@ function resetTimer() {
 }
 
 function addLap() {
-  
   let lapHour = hour;
   let lapMinute = minute;
   let lapSecond = second;
@@ -71,7 +67,6 @@ function addLap() {
 }
 
 function manipulateDom(phour, pminute, psecond, pmillisecond) {
-  
   hourSpan.innerHTML = String(phour).padStart(2, "0");
   minuteSpan.innerHTML = String(pminute).padStart(2, "0");
   secondSpan.innerHTML = String(psecond).padStart(2, "0");
@@ -102,7 +97,13 @@ stopBtn.addEventListener("click", () => {
 });
 
 resetBtn.addEventListener("click", () => {
-  resetTimer();
+  let confirmation = confirm("Are you sure you want to reset?");
+  if (confirmation) {
+    resetTimer();
+    //   for reset leap data to when reset button clickked
+    lapData = [];
+    lapContentCreator(lapData);
+  }
 });
 
 resetBtn.addEventListener("dblclick", () => {
