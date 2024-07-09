@@ -1,3 +1,4 @@
+// disable selected buttons depending on parameter
 function checkBtns(param) {
   if (param === "start") {
     startBtn.setAttribute("disabled", "true");
@@ -10,12 +11,7 @@ function checkBtns(param) {
   }
 }
 
-// function enableBtns() {
-//   startBtn.removeAttribute("disabled");
-
-//   resetBtn.removeAttribute("disabled");
-// }
-
+// start stopwatch
 function startTimer() {
   interval = setInterval(() => {
     millisecond++;
@@ -37,10 +33,12 @@ function startTimer() {
   }, 10);
 }
 
+// stop stopwatch
 function stopTimer() {
   clearInterval(interval);
 }
 
+// reset stopwatch
 function resetTimer() {
   hour = 0;
   minute = 0;
@@ -49,6 +47,7 @@ function resetTimer() {
   manipulateDom(hour, minute, second, millisecond);
 }
 
+// add lap
 function addLap() {
   let lapHour = hour;
   let lapMinute = minute;
@@ -66,6 +65,7 @@ function addLap() {
   lapContentCreator(lapData);
 }
 
+// manipulate dom and change dymaic values
 function manipulateDom(phour, pminute, psecond, pmillisecond) {
   hourSpan.innerHTML = String(phour).padStart(2, "0");
   minuteSpan.innerHTML = String(pminute).padStart(2, "0");
@@ -73,6 +73,7 @@ function manipulateDom(phour, pminute, psecond, pmillisecond) {
   millisecondSpan.innerHTML = String(pmillisecond).padStart(2, "0");
 }
 
+// create a lap container with lap data
 function lapContentCreator(array) {
   lapsContainer.innerHTML = "";
   for (let i = 0; i < array.length; i++) {
@@ -86,16 +87,19 @@ function lapContentCreator(array) {
   }
 }
 
+// when click start btn
 startBtn.addEventListener("click", () => {
   checkBtns("start");
   startTimer();
 });
 
+// when click stop btn
 stopBtn.addEventListener("click", () => {
   checkBtns("stop");
   stopTimer();
 });
 
+//  when click reset btn
 resetBtn.addEventListener("click", () => {
   let confirmation = confirm("Are you sure you want to reset?");
   if (confirmation) {
@@ -106,6 +110,7 @@ resetBtn.addEventListener("click", () => {
   }
 });
 
+// when double click reset btn
 resetBtn.addEventListener("dblclick", () => {
   lapData = [];
   lapContentCreator(lapData);
@@ -115,5 +120,6 @@ addLapBtn.addEventListener("click", () => {
   addLap();
 });
 
+// when page on load
 lapContentCreator(lapData);
 checkBtns("stop");
